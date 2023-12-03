@@ -67,14 +67,16 @@ class _SignupScreenState extends State<SignupScreen> {
       // ignore: use_build_context_synchronously
       showSnackBar(res, context);
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: ((context) => const ResponsiveLayout(
-                webScreenLayout: WebScreenLayout(),
-                mobileScreenLayout: MobileScreenLayout(),
-              )),
-        ),
-      );
+      if (context.mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: ((context) => const ResponsiveLayout(
+                  webScreenLayout: WebScreenLayout(),
+                  mobileScreenLayout: MobileScreenLayout(),
+                )),
+          ),
+        );
+      }
     }
   }
 
@@ -103,7 +105,8 @@ class _SignupScreenState extends State<SignupScreen> {
               //svg image
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
-                color: primaryColor,
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
                 height: 60,
               ),
               const Gap(64),

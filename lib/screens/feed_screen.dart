@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +14,7 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     model.User? user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +23,7 @@ class FeedScreen extends StatelessWidget {
         title: SvgPicture.asset(
           'assets/ic_instagram.svg',
           // theme: SvgTheme(currentColor: primaryColor),
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
           height: 32,
         ),
         actions: [
@@ -53,10 +54,10 @@ class FeedScreen extends StatelessWidget {
             );
           }
           return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) =>
-                PostCard(snap: snapshot.data!.docs[index].data()),
-          );
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => PostCard(
+                    snap: snapshot.data!.docs[index].data(),
+                  ));
         },
       ),
     );
