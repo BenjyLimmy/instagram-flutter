@@ -12,6 +12,7 @@ import 'package:instagram_flutter/screens/login_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
+import 'package:http/http.dart' as http;
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -28,6 +29,15 @@ class _SignupScreenState extends State<SignupScreen> {
   Uint8List? _image;
   bool _isLoading = false;
 
+  final imageUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg';
+
+  @override
+  void initState() {
+    super.initState();
+    getImage();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -35,6 +45,11 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordContoller.dispose();
     _bioContoller.dispose();
     _usernameContoller.dispose();
+  }
+
+  void getImage() async {
+    http.Response response = await http.get(Uri.parse(imageUrl));
+    _image = response.bodyBytes;
   }
 
   void selectImage() async {

@@ -30,13 +30,19 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   }
 
   void navigationTapped(int page) {
-    pageController.jumpToPage(page);
+    if (_page != page) {
+      pageController.jumpToPage(page);
+    } else {
+      pageController.jumpToPage(1);
+      pageController.jumpToPage(page);
+    }
+  }
+
+  void onPageChanged(int page) {
     setState(() {
       _page = page;
     });
   }
-
-  void onPageChanged(int page) {}
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_circle,
+              Icons.add_box_outlined,
             ),
             label: '',
           ),
