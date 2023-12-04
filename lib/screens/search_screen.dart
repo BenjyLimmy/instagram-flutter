@@ -54,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
-            onFieldSubmitted: (String _) {
+            onChanged: (String _) {
               setState(() {
                 isShowUsers = true;
                 debugPrint(searchController.text);
@@ -65,11 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: isShowUsers
           ? FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('username',
-                      isGreaterThanOrEqualTo: searchController.text)
-                  .get(),
+              future: FirebaseFirestore.instance.collection('users').get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -79,17 +75,23 @@ class _SearchScreenState extends State<SearchScreen> {
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          snapshot.data!.docs[index]['photoUrl'],
+                    var data = snapshot.data!.docs[index];
+                    if (data['username']
+                        .toString()
+                        .contains(searchController.text)) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            data['photoUrl'],
+                          ),
+                          radius: 16,
                         ),
-                        radius: 16,
-                      ),
-                      title: Text(
-                        (snapshot.data! as dynamic).docs[index]['username'],
-                      ),
-                    );
+                        title: Text(
+                          data['username'],
+                        ),
+                      );
+                    }
+                    return null;
                   },
                 );
               },
@@ -100,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   .orderBy('datePublished')
                   .get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
@@ -110,11 +112,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   crossAxisCount: 3,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) => Image.network(
-                    (snapshot.data! as dynamic).docs[index]['postUrl'],
+                    snapshot.data!.docs[index]['postUrl'],
                     fit: BoxFit.cover,
                   ),
-                  mainAxisSpacing: 8.0,
-                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 4.0,
+                  crossAxisSpacing: 4.0,
                 );
               },
             ),
