@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_flutter/screens/profile_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
-// import 'package:instagram_flutter/utils/utils.dart';
-// import 'package:instagram_flutter/models/user.dart' as model;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -30,7 +26,6 @@ class _SearchScreenState extends State<SearchScreen> {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
     );
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,

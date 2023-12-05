@@ -5,12 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:instagram_flutter/resources/auth_methods.dart';
 import 'package:instagram_flutter/resources/firestore_methods.dart';
 import 'package:instagram_flutter/screens/login_screen.dart';
-// import 'package:instagram_flutter/models/user.dart';
-// import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/follow_button.dart';
-// import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
