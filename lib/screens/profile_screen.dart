@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:instagram_flutter/resources/firestore_methods.dart';
 // import 'package:instagram_flutter/models/user.dart';
 // import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/utils/colors.dart';
@@ -129,12 +130,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             backgroundColor:
                                                 mobileBackgroundColor,
                                             borderColor: Colors.grey,
-                                            text: 'Edit Profile',
+                                            text: 'Sign Out',
                                             textColor: primaryColor,
                                           )
                                         : isFollowing
                                             ? FollowButton(
-                                                function: () {},
+                                                function: () async {
+                                                  await FirestoreMethods()
+                                                      .followUser(currentUid,
+                                                          widget.uid);
+                                                  setState(() {
+                                                    isFollowing = false;
+                                                    followers--;
+                                                  });
+                                                },
                                                 backgroundColor:
                                                     const Color.fromARGB(
                                                         66, 112, 99, 99),
@@ -145,7 +154,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 textColor: Colors.white,
                                               )
                                             : FollowButton(
-                                                function: () {},
+                                                function: () async {
+                                                  await FirestoreMethods()
+                                                      .followUser(currentUid,
+                                                          widget.uid);
+                                                  setState(() {
+                                                    isFollowing = true;
+                                                    followers++;
+                                                  });
+                                                },
                                                 backgroundColor: Colors.blue,
                                                 borderColor: Colors.blue,
                                                 text: 'Follow',
