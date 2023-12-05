@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_flutter/screens/profile_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
-import 'package:instagram_flutter/utils/utils.dart';
-import 'package:instagram_flutter/models/user.dart' as model;
+// import 'package:instagram_flutter/utils/utils.dart';
+// import 'package:instagram_flutter/models/user.dart' as model;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -18,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
   bool isShowUsers = false;
+
   @override
   void dispose() {
     super.dispose();
@@ -29,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
     );
-
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,

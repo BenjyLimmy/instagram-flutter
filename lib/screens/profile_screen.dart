@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:instagram_flutter/resources/auth_methods.dart';
 import 'package:instagram_flutter/resources/firestore_methods.dart';
+import 'package:instagram_flutter/screens/login_screen.dart';
 // import 'package:instagram_flutter/models/user.dart';
 // import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/utils/colors.dart';
@@ -126,7 +128,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   children: [
                                     currentUid == widget.uid
                                         ? FollowButton(
-                                            function: () {},
+                                            function: () async {
+                                              await AuthMethods().signOut();
+                                              if (context.mounted) {
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen(),
+                                                ));
+                                              }
+                                            },
                                             backgroundColor:
                                                 mobileBackgroundColor,
                                             borderColor: Colors.grey,
@@ -217,11 +229,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       itemBuilder: (context, index) {
                         DocumentSnapshot snap = snapshot.data!.docs[index];
-                        return Container(
-                          child: Image(
-                            image: NetworkImage(snap['postUrl']),
-                            fit: BoxFit.cover,
-                          ),
+                        return Image(
+                          image: NetworkImage(snap['postUrl']),
+                          fit: BoxFit.cover,
                         );
                       },
                     );

@@ -37,8 +37,10 @@ class InstagramApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: mobileBackgroundColor,
           textTheme: const TextTheme(
-            bodyMedium: TextStyle(fontFamily: 'Roboto'),
+            bodyMedium: TextStyle(fontFamily: 'Roboto', color: Colors.white),
+            bodySmall: TextStyle(fontFamily: 'Roboto', color: Colors.white),
           ),
+          brightness: Brightness.dark,
 
           // useMaterial3: true,
         ),
@@ -48,8 +50,6 @@ class InstagramApp extends StatelessWidget {
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            // FirebaseAuth auth = FirebaseAuth.instance;
-            // auth.signOut();
             //If user is logged in
             if (snapshot.connectionState == ConnectionState.active) {
               //Show home screen upon successful connection

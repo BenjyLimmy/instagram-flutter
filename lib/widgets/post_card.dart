@@ -7,6 +7,7 @@ import 'package:instagram_flutter/models/user.dart';
 import 'package:instagram_flutter/resources/firestore_methods.dart';
 import 'package:instagram_flutter/screens/comments_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:instagram_flutter/utils/global_variables.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/like_animation.dart';
 import 'dart:math' as math;
@@ -69,9 +70,14 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final User user = getUserData(setState, context, isLoading);
+    final width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: mobileBackgroundColor,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: width > webScreenSize ? secondaryColor : mobileBackgroundColor,
+        ),
+      ),
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
@@ -197,8 +203,7 @@ class _PostCardState extends State<PostCard> {
                             });
                           },
                           child: const Icon(Icons.favorite,
-                              color: Color.fromARGB(255, 206, 184, 184),
-                              size: 120),
+                              color: Colors.white, size: 120),
                         ),
                       ),
                     ],

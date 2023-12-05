@@ -7,6 +7,7 @@ import 'package:instagram_flutter/responsive/responsive_layout_screen.dart';
 import 'package:instagram_flutter/responsive/web_screen_layout.dart';
 import 'package:instagram_flutter/screens/signup_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:instagram_flutter/utils/global_variables.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
 
@@ -69,10 +70,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final border = OutlineInputBorder(
+      borderSide: const BorderSide(
+        width: 2.0,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.circular(5),
+    );
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: MediaQuery.of(context).size.width > webScreenSize
+              ? EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 3)
+              : const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,19 +101,41 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const Gap(64),
               //Text field input for email
-              TextFieldInput(
-                textEditingController: _emailContoller,
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
+              TextField(
+                controller: _emailContoller,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  filled: true,
+                  fillColor: const Color.fromARGB(255, 37, 32, 32),
+                  focusedBorder: border,
+                  enabledBorder: border,
+                ),
+                keyboardType: TextInputType.emailAddress,
               ),
+
               const Gap(24),
               //Text field input for password
-              TextFieldInput(
-                textEditingController: _passwordContoller,
-                hintText: 'Password',
-                textInputType: TextInputType.text,
-                isPass: true,
+              TextField(
+                controller: _passwordContoller,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  filled: true,
+                  fillColor: const Color.fromARGB(255, 37, 32, 32),
+                  focusedBorder: border,
+                  enabledBorder: border,
+                ),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
               ),
+
               const Gap(24),
               //button login
               InkWell(
