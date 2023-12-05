@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_flutter/models/user.dart';
-import 'package:instagram_flutter/providers/user_provider.dart';
+// import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/resources/firestore_methods.dart';
 import 'package:instagram_flutter/screens/comments_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
@@ -12,7 +12,7 @@ import 'package:instagram_flutter/widgets/like_animation.dart';
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
   final Map<String, dynamic> snap;
@@ -45,17 +45,6 @@ class _PostCardState extends State<PostCard> {
     getComments();
   }
 
-  User getData() {
-    setState(() {
-      isLoading = true;
-    });
-    User user = Provider.of<UserProvider>(context).getUser!;
-    setState(() {
-      isLoading = false;
-    });
-    return user;
-  }
-
   void getComments() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
@@ -79,7 +68,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = getData();
+    final User user = getUserData(setState, context, isLoading);
 
     return Container(
       color: mobileBackgroundColor,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram_flutter/models/user.dart';
+import 'package:instagram_flutter/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 pickImage({required ImageSource source, required bool isProfile}) async {
   final ImagePicker imagePicker = ImagePicker();
@@ -23,4 +26,15 @@ showSnackBar(String content, BuildContext context) {
       ),
     );
   }
+}
+
+User getUserData(StateSetter setState, BuildContext context, bool isLoading) {
+  setState(() {
+    isLoading = true;
+  });
+  User user = Provider.of<UserProvider>(context).getUser!;
+  setState(() {
+    isLoading = false;
+  });
+  return user;
 }

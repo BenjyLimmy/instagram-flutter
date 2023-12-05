@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_flutter/providers/user_provider.dart';
+// import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/global_variables.dart';
-import 'package:provider/provider.dart';
-import 'package:instagram_flutter/models/user.dart' as model;
+// import 'package:provider/provider.dart';
+// import 'package:instagram_flutter/models/user.dart' as model;
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
@@ -46,7 +46,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   @override
   Widget build(BuildContext context) {
-    model.User? user = Provider.of<UserProvider>(context).getUser;
+    // model.User? user = Provider.of<UserProvider>(context).getUser;
 
     return Scaffold(
       body: PageView(
@@ -55,44 +55,47 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         physics: const NeverScrollableScrollPhysics(),
         children: homeScreenItems,
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: mobileBackgroundColor,
-        currentIndex: _page,
-        activeColor: primaryColor,
-        inactiveColor: secondaryColor,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: CupertinoTabBar(
+          backgroundColor: mobileBackgroundColor,
+          currentIndex: _page,
+          activeColor: primaryColor,
+          inactiveColor: secondaryColor,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_box_outlined,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add_box_outlined,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-        ],
-        onTap: navigationTapped,
+          ],
+          onTap: navigationTapped,
+        ),
       ),
     );
   }

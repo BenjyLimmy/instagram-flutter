@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:instagram_flutter/screens/profile_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:instagram_flutter/utils/utils.dart';
+import 'package:instagram_flutter/models/user.dart' as model;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -76,18 +80,26 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     var data = snapshot.data!.docs[index];
-                    if (data['username']
-                        .toString()
-                        .contains(searchController.text)) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            data['photoUrl'],
+                    var username = data['username'];
+
+                    if (username.toString().contains(searchController.text)) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileScreen(uid: data['uid']),
+                          ));
+                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              data['photoUrl'],
+                            ),
+                            radius: 16,
                           ),
-                          radius: 16,
-                        ),
-                        title: Text(
-                          data['username'],
+                          title: Text(
+                            '$username',
+                          ),
                         ),
                       );
                     }
@@ -115,8 +127,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     snapshot.data!.docs[index]['postUrl'],
                     fit: BoxFit.cover,
                   ),
-                  mainAxisSpacing: 4.0,
-                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 2,
                 );
               },
             ),
